@@ -1,0 +1,28 @@
+---
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
+interface Props {
+	icon: string;
+	data: string;
+	title: string;
+  change: number
+}
+
+const { icon, data, title, change } = Astro.props;
+---
+
+<Card>
+	<CardContent>
+	  <div>{icon}</div>
+    <div>{data}</div>
+    <div>{title}</div>
+    <div>{change}</div>
+	</CardContent>
+</Card>
