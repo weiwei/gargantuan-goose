@@ -1,10 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import SummaryCard from '../components/SummaryCard.astro';
+import Aside from '../components/Aside.astro';
+import Header from '../components/Header.astro';
+import Dashboard from '../components/Dashboard.astro';
 ---
 
 <Layout title="Welcome to Astro.">
-	<main>
+	<div>
+		<Aside />
+		<div>
+			<Header title="Dashboard" />
+			<Dashboard />
+		</div>
+	</div>
+	<!-- <main>
 		<svg
 			class="astro-a"
 			width="495"
@@ -60,10 +70,10 @@ import SummaryCard from '../components/SummaryCard.astro';
 				body="Come say hi to our amazing Discord community. ❤️"
 			/>
 		</ul>
-	</main>
+	</main> -->
 </Layout>
 
-<style>
+<!-- <style>
 	main {
 		margin: auto;
 		padding: 1rem;
@@ -120,4 +130,4 @@ import SummaryCard from '../components/SummaryCard.astro';
 		gap: 2rem;
 		padding: 0;
 	}
-</style>
+</style> -->
