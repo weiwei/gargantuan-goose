@@ -8,11 +8,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+const COLORS = { Windows: "#0088FE", Mac: "#00C49F", Linux: "#FFBB28" }; // "#FF8042"];
 
 export interface Props {
   name: string;
-  data: { name: string; value: number }[];
+  data: { name: "Windows" | "Mac" | "Linux"; value: number }[];
 }
 
 export default function DashPieChart(props: Props) {
@@ -37,7 +37,7 @@ export default function DashPieChart(props: Props) {
             {data.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
+                fill={COLORS[entry.name]}
               />
             ))}
           </Pie>

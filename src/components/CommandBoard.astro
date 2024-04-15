@@ -1,31 +1,26 @@
 ---
-import { HW, Run, OS, db, desc, eq } from "astro:db";
+import { HW, Run, OS, db, desc, eq, like } from "astro:db";
 import ConfigTableCard from "./ConfigTableCard.astro";
 import DashPieChart from "./PieChartCard.tsx";
 import SummaryCard from "./SummaryCard.astro";
+import BarChartCard from "./BarChartCard";
+
+interface Props {
+  commandStr: string;
+}
+
+const { commandStr } = Astro.props;
 
 const runs = await db
   .select()
   .from(Run)
+  .where(like(Run.command, `${commandStr}%`))
   .innerJoin(OS, eq(Run.osId, OS.id))
+  .innerJoin(HW, eq(Run.hwId, HW.id))
   .orderBy(desc(Run.date));
 const hwConfigs = await db.select().from(HW);
 const osConfigs = await db.select().from(OS);
-
-const osData: any[] = [
-  {
-    name: "Windows",
-    value: runs.filter(({ OS, Run }) => OS.platform === "Windows").length,
-  },
-  {
-    name: "Linux",
-    value: runs.filter(({ OS, Run }) => OS.platform === "linux").length,
-  },
-  {
-    name: "Mac",
-    value: runs.filter(({ OS, Run }) => OS.platform === "darwin").length,
-  },
-];
+const durations = runs.map((r) => r.Run.duration / 1000);
 ---
 
 <main class="m-4 grid gap-4">
@@ -48,14 +43,21 @@ const osData: any[] = [
       title="OS Configs"
       change={0.2}
     />
+    <SummaryCard
+      icon="mdi:account"
+      data={Math.floor(Math.max(...durations)).toString()}
+      title="Fastest"
+    />
+    <SummaryCard
+      icon="mdi:account"
+      data={Math.floor(Math.min(...durations)).toString()}
+      title="Slowest"
+    />
+    <SummaryCard
+      icon="mdi:account"
+      data={Math.floor(durations.reduce((a, b) => a + b) / durations.length).toString()}
+      title="Average"
+    />
   </div>
-  <DashPieChart name="OS Distribution" data={osData} />
-  <ConfigTableCard
-    data={hwConfigs.map((h) => ({
-      id: h.id,
-      cpu: h.cpu_brand,
-      mem: h.mem_total,
-      graphics: h.graphics,
-    }))}
-  />
+  <BarChartCard client:only />
 </main>

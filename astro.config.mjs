@@ -9,7 +9,7 @@ import icon from "astro-icon";
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), tailwind(), db(), icon()],
-  output: "server",
+  output: "hybrid",
   adapter: node({
     mode: "standalone"
   })
