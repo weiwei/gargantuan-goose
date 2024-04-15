@@ -1,6 +1,44 @@
 ---
+import { db, CPU, OS, Run, eq, desc } from 'astro:db';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { TableCaption, TableHeader, TableRow, TableHead, TableBody, TableCell, TableFooter, Table } from './ui/table';
+
+const runs = await db.select().from(Run).innerJoin(CPU, eq(Run.cpuId, CPU.id)).orderBy(desc(Run.date));
+
 ---
 
-<main>
-    <div>This is the live data</div>
+<main class="m-4 grid gap-4">
+    <Card className="p-4">
+        <CardHeader>
+          <CardTitle>Live Data</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableCaption>A list of your recent invoices.</TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="">Date</TableHead>
+                <TableHead>Command</TableHead>
+                <TableHead>Method</TableHead>
+                <TableHead className="text-right">Duration</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {
+                runs.map(({CPU, Run}) => (
+                  <TableRow key={Run.id}>
+                    <TableCell className="font-medium">{Run.date.toDateString()}</TableCell>
+                    <TableCell>{Run.command}</TableCell>
+                    <TableCell>{CPU.brand}</TableCell>
+                    <TableCell className="text-right">
+                      {Run.duration/1000}
+                    </TableCell>
+                  </TableRow>
+                ))
+              }
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+      
 </main>

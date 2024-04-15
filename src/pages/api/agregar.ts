@@ -11,10 +11,10 @@ export const GET: APIRoute = async ({ request }) => {
 
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.json();
-  const cpuInfo = data.cpuInfo as any;
+  const cpuInfo = data.cpu as any;
   let insertedCPU = await db.select().from(CPU).where(
     and(eq(CPU.manufacturer, cpuInfo.manufacturer), eq(CPU.brand, cpuInfo.brand)));
-  if (!insertedCPU) {
+  if (insertedCPU.length === 0) {
     insertedCPU = await db.insert(CPU).values(cpuInfo).returning();
   }
 
@@ -25,7 +25,7 @@ export const POST: APIRoute = async ({ request }) => {
     eq(OS.platform, osInfo.platform), 
     eq(OS.release, osInfo.release)
   ));
-  if (!insertedOs) {
+  if (insertedOs.length === 0) {
     insertedOs = await db.insert(OS).values(osInfo).returning();
   }
 
@@ -34,7 +34,8 @@ export const POST: APIRoute = async ({ request }) => {
     osId: insertedOs[0].id, 
     cpuId: insertedCPU[0].id, 
     mem_total: data.mem.total,
-    mem_free: data.mem.free, 
+    mem_free: data.mem.free,
+    graphics: data.graphics.controllers[0].model,
     date: new Date(), 
     duration: data.duration}).returning();
 
