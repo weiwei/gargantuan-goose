@@ -29,8 +29,9 @@ export default async function seed() {
 			cpuId: 1,
 			mem_total: 34281472000,
 			mem_free: 19548569600,
+			graphics: "NVIDIA GeForce GTX 1660 Ti",
 			date: new Date(),
-			duration: 15000
+			duration: 15000,
 		},
 		{
 			command: "echo 'Hello, World!'",
@@ -38,6 +39,7 @@ export default async function seed() {
 			cpuId: 1,
 			mem_total: 34281472000,
 			mem_free: 19548569600,
+			graphics: "NVIDIA GeForce GTX 1660 Ti",
 			date: new Date(),
 			duration: 18000
 		},
@@ -47,6 +49,7 @@ export default async function seed() {
 			cpuId: 1,
 			mem_total: 34281472000,
 			mem_free: 19548569600,
+			graphics: "NVIDIA GeForce GTX 1660 Ti",
 			date: new Date(),
 			duration: 16000
 		},
@@ -56,6 +59,7 @@ export default async function seed() {
 			cpuId: 1,
 			mem_total: 34281472000,
 			mem_free: 19548569600,
+			graphics: "NVIDIA GeForce GTX 1660 Ti",
 			date: new Date(),
 			duration: 16100
 		}

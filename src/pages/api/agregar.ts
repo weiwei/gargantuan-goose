@@ -2,6 +2,12 @@ import type { APIRoute } from "astro";
 import { db, eq, and, CPU, OS, Run } from "astro:db";
 import si from "systeminformation";
 
+export const GET: APIRoute = async ({ request }) => {
+  // Test anything here
+  const gpu = await si.graphics();
+  return new Response(JSON.stringify(gpu), { status: 200 });
+}
+
 
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.json();

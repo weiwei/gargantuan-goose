@@ -26,6 +26,7 @@ export const Run = defineTable({
     cpuId : column.number({ references: () => CPU.columns.id }),
     mem_total: column.number(),
     mem_free: column.number(),
+    graphics: column.text(),
     date: column.date(),
     duration: column.number()
   }
