@@ -14,7 +14,7 @@ const runs = await db.select().from(Run).innerJoin(CPU, eq(Run.cpuId, CPU.id)).o
         </CardHeader>
         <CardContent>
           <Table>
-            <TableCaption>A list of your recent invoices.</TableCaption>
+            <TableCaption>Not particularly live yet. Please bear with me this is just a demo</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead className="">Date</TableHead>
@@ -27,7 +27,7 @@ const runs = await db.select().from(Run).innerJoin(CPU, eq(Run.cpuId, CPU.id)).o
               {
                 runs.map(({CPU, Run}) => (
                   <TableRow key={Run.id}>
-                    <TableCell className="font-medium">{Run.date.toDateString()}</TableCell>
+                    <TableCell className="text-nowrap">{Run.date.toLocaleString()}</TableCell>
                     <TableCell>{Run.command}</TableCell>
                     <TableCell>{CPU.brand}</TableCell>
                     <TableCell className="text-right">
