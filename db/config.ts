@@ -10,11 +10,13 @@ export const OS = defineTable({
   }
 })
 
-const CPU = defineTable({
+export const HW = defineTable({
   columns: {
-    id: column.number({ primaryKey: true }),
-    manufacturer: column.text(),
-    brand: column.text(),
+    id: column.number({primaryKey: true}),
+    cpu_manufacturer: column.text(),
+    cpu_brand: column.text(),
+    graphics: column.text(),
+    mem_total: column.number(),
   }
 })
 
@@ -23,10 +25,8 @@ export const Run = defineTable({
     id: column.number({ primaryKey: true }),
     command:  column.text(),
     osId: column.number({ references: () => OS.columns.id }),
-    cpuId : column.number({ references: () => CPU.columns.id }),
-    mem_total: column.number(),
+    hwId: column.number({ references: () => HW.columns.id }),
     mem_free: column.number(),
-    graphics: column.text(),
     date: column.date(),
     duration: column.number()
   }
@@ -35,5 +35,5 @@ export const Run = defineTable({
 
 // https://astro.build/db/config
 export default defineDb({
-  tables: {OS, CPU, Run}
+  tables: {OS, HW, Run}
 });

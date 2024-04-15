@@ -11,15 +11,16 @@ import {
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 export interface Props {
+  name: string;
   data: { name: string; value: number }[];
 }
 
 export default function DashPieChart(props: Props) {
-  const { data } = props;
+  const { name, data } = props;
   return (
     <Card className="p-4">
       <CardHeader>
-        <CardTitle>Pie Chart</CardTitle>
+        <CardTitle>{name}</CardTitle>
       </CardHeader>
       <CardContent className="">
         <PieChart width={300} height={300}>

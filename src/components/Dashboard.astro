@@ -1,4 +1,5 @@
 ---
+import { HW, Run, OS, db, desc, eq } from "astro:db";
 import ConfigTableCard from "./ConfigTableCard.astro";
 import DashPieChart from "./PieChartCard.tsx";
 import SummaryCard from "./SummaryCard.astro";
@@ -9,14 +10,39 @@ const DATA = [
   { name: "Group C", value: 300 },
   { name: "Group D", value: 200 },
 ];
+const runs = await db.select().from(Run);
+const hwConfigs = await db.select().from(HW);
+const osConfigs = await db.select().from(OS);
 ---
 
 <main class="m-4 grid gap-4">
-    <div class="grid grid-cols-3 gap-2">
-        <SummaryCard icon="mdi:file-document-box-multiple-outline" data="100" title="Data entries" change={0.2} />
-        <SummaryCard icon="mdi:computer" data="100" title="HW configs" change={0.2} />
-        <SummaryCard icon="mdi:account" data="100" title="Total Users" change={0.2} />
-    </div>
-    <DashPieChart data={DATA} />
-    <ConfigTableCard data="" />
- </main>
+  <div class="grid grid-cols-3 gap-2">
+    <SummaryCard
+      icon="mdi:file-document-box-multiple-outline"
+      data={runs.length.toString()}
+      title="Data entries"
+      change={0.2}
+    />
+    <SummaryCard
+      icon="mdi:computer"
+      data={hwConfigs.length.toString()}
+      title="HW Configs"
+      change={0.2}
+    />
+    <SummaryCard
+      icon="mdi:account"
+      data={osConfigs.length.toString()}
+      title="OS Configs"
+      change={0.2}
+    />
+  </div>
+  <DashPieChart name="OS Distribution" data={DATA} />
+  <ConfigTableCard
+    data={hwConfigs.map((h) => ({
+      id: h.id,
+      cpu: h.cpu_brand,
+      mem: h.mem_total,
+      graphics: h.graphics,
+    }))}
+  />
+</main>

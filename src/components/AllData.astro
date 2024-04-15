@@ -1,9 +1,9 @@
 ---
-import { db, CPU, OS, Run, eq, desc } from 'astro:db';
+import { db, HW, OS, Run, eq, desc } from 'astro:db';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { TableCaption, TableHeader, TableRow, TableHead, TableBody, TableCell, TableFooter, Table } from './ui/table';
 
-const runs = await db.select().from(Run).innerJoin(CPU, eq(Run.cpuId, CPU.id)).orderBy(desc(Run.date));
+const runs = await db.select().from(Run).innerJoin(HW, eq(Run.hwId, HW.id)).orderBy(desc(Run.date));
 
 ---
 
@@ -25,11 +25,11 @@ const runs = await db.select().from(Run).innerJoin(CPU, eq(Run.cpuId, CPU.id)).o
             </TableHeader>
             <TableBody>
               {
-                runs.map(({CPU, Run}) => (
+                runs.map(({HW, Run}) => (
                   <TableRow key={Run.id}>
                     <TableCell className="text-nowrap">{Run.date.toLocaleString()}</TableCell>
                     <TableCell>{Run.command}</TableCell>
-                    <TableCell>{CPU.brand}</TableCell>
+                    <TableCell>{HW.cpu_brand}</TableCell>
                     <TableCell className="text-right">
                       {Run.duration/1000}
                     </TableCell>
