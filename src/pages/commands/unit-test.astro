@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Aside from '../../components/Aside.astro';
 import AllData from '../../components/AllData.astro';
 import Header from '../../components/Header.astro';
+import CommandBoard from '../../components/CommandBoard.astro';
 ---
 
 <Layout title="Welcome to Astro.">
@@ -10,7 +11,7 @@ import Header from '../../components/Header.astro';
 		<Aside />
 		<div class="m-4">
 			<Header title="Dashboard" />
-			<AllData />
+			<CommandBoard commandStr="echo 'Hello" />
 		</div>
 	</div>
 </Layout>

@@ -57,17 +57,25 @@ const data = [
   },
 ];
 
-export default function BarChartCard(props: any) {
+export interface Props {
+  name: string;
+  data: { key: string; value: number }[];
+}
+
+export default function BarChartCard(props: Props) {
+  const { name, data } = props;
   return (
     <Card className="p-4">
       <CardHeader>
-        <CardTitle>{"123"}</CardTitle>
+        <CardTitle>{name}</CardTitle>
       </CardHeader>
-      <CardContent className="h-32">
+      <CardContent className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
-            width={500}
-            height={300}
+            layout="vertical"
+            barCategoryGap={1}
+            // width={500}
+            // height={300}
             data={data}
             margin={{
               top: 5,
@@ -77,19 +85,14 @@ export default function BarChartCard(props: any) {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
+            <XAxis type="number" hide />
+            <YAxis type="category" dataKey="key" width={150}/>
             <Tooltip />
             <Legend />
             <Bar
-              dataKey="pv"
+              dataKey="value"
               fill="#8884d8"
               activeBar={<Rectangle fill="pink" stroke="blue" />}
-            />
-            <Bar
-              dataKey="uv"
-              fill="#82ca9d"
-              activeBar={<Rectangle fill="gold" stroke="purple" />}
             />
           </BarChart>
         </ResponsiveContainer>

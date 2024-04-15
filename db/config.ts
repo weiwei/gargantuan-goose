@@ -15,6 +15,7 @@ export const HW = defineTable({
     id: column.number({primaryKey: true}),
     cpu_manufacturer: column.text(),
     cpu_brand: column.text(),
+    cpu_cores: column.number(),
     graphics: column.text(),
     mem_total: column.number(),
   }

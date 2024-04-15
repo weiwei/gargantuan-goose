@@ -7,13 +7,15 @@ export default async function seed() {
 			id: 1,
 			cpu_manufacturer: 'Intel',
 			cpu_brand: 'Core i7',
-			mem_total: 51200000,
+			cpu_cores: 12,
+			mem_total: 68000000000,
 			graphics: "Nvidia N4090"
 		},
 		{	id: 2,
 			cpu_manufacturer: 'AMD',
 			cpu_brand: 'Ryzen 9 5900X 12-Core Processor',
-			mem_total: 51200000,
+			cpu_cores: 16,
+			mem_total: 68000000000,
 			graphics: "AMD 7900"
 		}
 	]);
@@ -50,6 +52,14 @@ export default async function seed() {
 			mem_free: 19548569600,
 			date: new Date(),
 			duration: 16000
+		},
+		{
+			command: "echo 'Hello, World!'",
+			osId: 1,
+			hwId: 2,
+			mem_free: 19548569600,
+			date: new Date(),
+			duration: 19000
 		},
 		{
 			command: "echo 'Beta, World!'",

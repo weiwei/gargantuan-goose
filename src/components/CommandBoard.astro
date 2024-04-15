@@ -21,6 +21,28 @@ const runs = await db
 const hwConfigs = await db.select().from(HW);
 const osConfigs = await db.select().from(OS);
 const durations = runs.map((r) => r.Run.duration / 1000);
+const barData = [];
+for (const hwCfg of hwConfigs) {
+  let entry = {
+    key: `${hwCfg.cpu_brand}/${Math.floor(hwCfg.mem_total / 1024 / 1000 / 1024)}G/${hwCfg.graphics}`,
+    value: [] as any[],
+  };
+  for (const r of runs) {
+    if (r.HW.id === hwCfg.id) {
+      entry.value.push(r.Run.duration);
+    }
+  }
+  if (entry.value.length === 0) {
+    continue;
+  }
+  const result = {
+    key: entry.key,
+    value: Math.floor(
+      entry.value.reduce((a, b) => a + b) / entry.value.length / 1000
+    ),
+  };
+  barData.push(result);
+}
 ---
 
 <main class="m-4 grid gap-4">
@@ -38,26 +60,28 @@ const durations = runs.map((r) => r.Run.duration / 1000);
       change={0.2}
     />
     <SummaryCard
-      icon="mdi:account"
+      icon="mdi:ladybug"
       data={osConfigs.length.toString()}
       title="OS Configs"
       change={0.2}
     />
     <SummaryCard
-      icon="mdi:account"
-      data={Math.floor(Math.max(...durations)).toString()}
+      icon="mdi:emoticon-happy-outline"
+      data={Math.floor(Math.min(...durations)).toString()}
       title="Fastest"
     />
     <SummaryCard
-      icon="mdi:account"
-      data={Math.floor(Math.min(...durations)).toString()}
+      icon="mdi:emoticon-sad-outline"
+      data={Math.floor(Math.max(...durations)).toString()}
       title="Slowest"
     />
     <SummaryCard
-      icon="mdi:account"
-      data={Math.floor(durations.reduce((a, b) => a + b) / durations.length).toString()}
+      icon="mdi:emoticon-neutral-outline"
+      data={Math.floor(
+        durations.reduce((a, b) => a + b) / durations.length
+      ).toString()}
       title="Average"
     />
   </div>
-  <BarChartCard client:only />
+  <BarChartCard client:only name="Average Time by HW" data={barData} />
 </main>
