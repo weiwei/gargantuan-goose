@@ -1,6 +1,22 @@
 ---
+import ConfigTableCard from "./ConfigTableCard.astro";
+import DashPieChart from "./PieChartCard.tsx";
+import SummaryCard from "./SummaryCard.astro";
+
+const DATA = [
+  { name: "Group A", value: 400 },
+  { name: "Group B", value: 300 },
+  { name: "Group C", value: 300 },
+  { name: "Group D", value: 200 },
+];
 ---
 
-<main>
-    <div>This is the dashboard</div>
-</main>
+<main class="m-4 grid gap-4">
+    <div class="grid grid-cols-3 gap-2">
+        <SummaryCard icon="mdi:file-document-box-multiple-outline" data="100" title="Data entries" change={0.2} />
+        <SummaryCard icon="mdi:computer" data="100" title="HW configs" change={0.2} />
+        <SummaryCard icon="mdi:account" data="100" title="Total Users" change={0.2} />
+    </div>
+    <DashPieChart data={DATA} />
+    <ConfigTableCard />
+ </main>
