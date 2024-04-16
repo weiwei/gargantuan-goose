@@ -1,14 +1,11 @@
-import React, { PureComponent } from "react";
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Cell } from "recharts";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-const COLORS = { Windows: "#0088FE", Mac: "#00C49F", Linux: "#FFBB28" }; // "#FF8042"];
+const COLORS = { Windows: "#0088FE", Mac: "#00C49F", Linux: "#FFBB28" };
 
 export interface Props {
   name: string;
