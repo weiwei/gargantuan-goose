@@ -86,7 +86,7 @@ export default function BarChartCard(props: Props) {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis type="number" hide />
-            <YAxis type="category" dataKey="key" width={150}/>
+            <YAxis type="category" dataKey="key" width={150} />
             <Tooltip />
             <Legend />
             <Bar
