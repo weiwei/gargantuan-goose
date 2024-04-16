@@ -18,7 +18,7 @@ const runs = await db
   .orderBy(desc(Run.date));
 const hwConfigs = await db.select().from(HW);
 const osConfigs = await db.select().from(OS);
-const durations = runs.map((r) => r.Run.duration / 1000);
+const durations = runs.map((r) => r.Run.duration);
 const barData = [];
 for (const hwCfg of hwConfigs) {
   let entry = {
@@ -36,7 +36,7 @@ for (const hwCfg of hwConfigs) {
   const result = {
     key: entry.key,
     value: Math.floor(
-      entry.value.reduce((a, b) => a + b) / entry.value.length / 1000
+      entry.value.reduce((a, b) => a + b) / entry.value.length
     ),
   };
   barData.push(result);

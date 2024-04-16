@@ -61,7 +61,7 @@ export const POST: APIRoute = async ({ request }) => {
       hwId: insertedHW[0].id,
       mem_free: data.mem.free,
       date: new Date(),
-      duration: data.duration,
+      duration: data.duration / 1000,
     })
     .returning();
 
