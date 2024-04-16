@@ -12,6 +12,9 @@ WORKDIR /app
 # Set production environment
 ENV NODE_ENV="production"
 
+ARG ASTRO_STUDIO_APP_TOKEN
+ENV ASTRO_STUDIO_APP_TOKEN ${ASTRO_STUDIO_APP_TOKEN}
+
 # Install pnpm
 ARG PNPM_VERSION=8.15.5
 RUN npm install -g pnpm@$PNPM_VERSION
