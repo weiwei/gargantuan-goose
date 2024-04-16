@@ -1,9 +1,5 @@
 name: Fly Deploy
 
-env:
-  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-  ASTRO_STUDIO_APP_TOKEN: ${{ secrets.ASTRO_DB_FLYIO_DEPLOY }}
-
 on:
   push:
     branches:
@@ -16,5 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only --build-arg ASTRO_STUDIO_APP_TOKEN=$ASTRO_STUDIO_APP_TOKEN
+      - run: flyctl deploy --remote-only --build-arg ASTRO_STUDIO_APP_TOKEN=${{ secrets.ASTRO_STUDIO_APP_TOKEN }}
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
