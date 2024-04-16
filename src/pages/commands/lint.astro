@@ -6,12 +6,12 @@ import Header from '../../components/Header.astro';
 import CommandBoard from '../../components/CommandBoard.astro';
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Lint">
 	<div class="container mx-auto grid grid-cols-[300px_1fr]">
 		<Aside />
 		<div class="m-4">
-			<Header title="Dashboard" />
-			<CommandBoard commandStr="echo 'Hello" />
+			<Header title="Lint" />
+			<CommandBoard commandStr="eslint" />
 		</div>
 	</div>
 </Layout>

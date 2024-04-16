@@ -35,16 +35,19 @@ for (const hwCfg of hwConfigs) {
   }
   const result = {
     key: entry.key,
-    value: Math.floor(
-      entry.value.reduce((a, b) => a + b) / entry.value.length
-    ),
+    value: Math.floor(entry.value.reduce((a, b) => a + b) / entry.value.length),
   };
   barData.push(result);
 }
+
+const avg =
+  durations.length === 0
+    ? 0
+    : durations.reduce((a, b) => a + b) / durations.length;
 ---
 
 <main class="m-4 grid gap-4">
-  <div class="grid grid-cols-3 gap-2">
+  <div class="grid grid-cols-2 gap-2">
     <SummaryCard
       icon="mdi:file-document-box-multiple-outline"
       data={runs.length.toString()}
@@ -52,14 +55,10 @@ for (const hwCfg of hwConfigs) {
     />
     <SummaryCard
       icon="mdi:computer"
-      data={hwConfigs.length.toString()}
+      data={barData.length.toString()}
       title="HW Configs"
     />
-    <SummaryCard
-      icon="mdi:ladybug"
-      data={osConfigs.length.toString()}
-      title="OS Configs"
-    />
+  </div><div class="grid grid-cols-3 gap-2">
     <SummaryCard
       icon="mdi:emoticon-happy-outline"
       data={Math.floor(Math.min(...durations)).toString()}
@@ -72,9 +71,7 @@ for (const hwCfg of hwConfigs) {
     />
     <SummaryCard
       icon="mdi:emoticon-neutral-outline"
-      data={Math.floor(
-        durations.reduce((a, b) => a + b) / durations.length
-      ).toString()}
+      data={Math.floor(avg).toString()}
       title="Average"
     />
   </div>
