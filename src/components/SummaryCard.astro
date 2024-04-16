@@ -22,9 +22,9 @@ const { icon, data, title, change } = Astro.props;
 ---
 
 <Card className="p-4">
-	<CardContent>
+	<CardContent className="p-0">
 	  <Icon name={icon} class="w-8 h-8" />
-    <div class="text-2xl">{data}</div>
+    <div class="text-3xl mt-2">{data}</div>
     <div>{title}</div>
     {change! > 0 && <div class="text-green-600">↑{change}</div>}
     {change! < 0 && <div class="text-red-600">↓{change}</div>}

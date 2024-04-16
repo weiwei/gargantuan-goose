@@ -34,19 +34,16 @@ const osData: any[] = [
       icon="mdi:file-document-box-multiple-outline"
       data={runs.length.toString()}
       title="Data entries"
-      change={0.2}
     />
     <SummaryCard
       icon="mdi:computer"
       data={hwConfigs.length.toString()}
       title="HW Configs"
-      change={0.2}
     />
     <SummaryCard
       icon="mdi:account"
       data={osConfigs.length.toString()}
       title="OS Configs"
-      change={0.2}
     />
   </div>
   <DashPieChart name="OS Distribution" data={osData} />
