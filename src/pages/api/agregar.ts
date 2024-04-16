@@ -21,11 +21,20 @@ export const POST: APIRoute = async ({ request }) => {
         eq(HW.cpu_brand, cpuInfo.brand),
         eq(HW.cpu_cores, cpuInfo.physicalCores),
         eq(HW.mem_total, data.mem.total),
-        eq(HW.graphics, data.gpu.controllers[0].model)
+        eq(HW.graphics, data.graphics.controllers[0].model)
       )
     );
   if (insertedHW.length === 0) {
-    insertedHW = await db.insert(CPU).values(cpuInfo).returning();
+    insertedHW = await db
+      .insert(HW)
+      .values({
+        cpu_brand: cpuInfo.brand,
+        cpu_cores: cpuInfo.physicalCores,
+        cpu_manufacturer: cpuInfo.manufacturer,
+        mem_total: data.mem.total,
+        graphics: data.graphics.controllers[0].model,
+      })
+      .returning();
   }
 
   const osInfo = data.osInfo as any;
