@@ -18,12 +18,13 @@ export interface Props {
 
 export default function BarChartCard(props: Props) {
   const { name, data } = props;
+  const height = 64 * data.length ;
   return (
     <Card className="p-4">
       <CardHeader>
         <CardTitle>{name}</CardTitle>
       </CardHeader>
-      <CardContent className="h-64">
+      <CardContent className="min-h-32">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             layout="vertical"
@@ -40,12 +41,13 @@ export default function BarChartCard(props: Props) {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis type="number" hide />
-            <YAxis type="category" dataKey="key" width={150} />
+            <YAxis type="category" dataKey="key" width={150} fontSize={11} />
             <Tooltip />
             <Legend />
             <Bar
               dataKey="value"
               fill="#8884d8"
+              width={48}
               activeBar={<Rectangle fill="pink" stroke="blue" />}
             />
           </BarChart>
