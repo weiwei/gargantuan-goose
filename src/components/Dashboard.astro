@@ -46,7 +46,7 @@ const osData: any[] = [
       title="OS Configs"
     />
   </div>
-  <DashPieChart name="OS Distribution" data={osData} />
+  <DashPieChart name="OS Distribution" data={osData} client:only="react" />
   <ConfigTableCard
     data={hwConfigs.map((h) => ({
       id: h.id,

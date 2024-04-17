@@ -18,13 +18,12 @@ export interface Props {
 
 export default function BarChartCard(props: Props) {
   const { name, data } = props;
-  const height = 64 * data.length ;
   return (
     <Card className="p-4">
       <CardHeader>
         <CardTitle>{name}</CardTitle>
       </CardHeader>
-      <CardContent className="min-h-32">
+      <CardContent className="h-96">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             layout="vertical"

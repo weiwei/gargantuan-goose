@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import {
   Card,
   CardContent,
@@ -19,26 +19,27 @@ export default function DashPieChart(props: Props) {
       <CardHeader>
         <CardTitle>{name}</CardTitle>
       </CardHeader>
-      <CardContent className="">
-        <PieChart width={300} height={300}>
+      <CardContent className="h-64">
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
           <Pie
             data={data}
-            cx={120}
-            cy={200}
             innerRadius={60}
             outerRadius={80}
             fill="#8884d8"
             paddingAngle={5}
             dataKey="value"
+            label={({name}) => name}
           >
             {data.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[entry.name]}
-              />
+              / >
             ))}
           </Pie>
         </PieChart>
+        </ResponsiveContainer>
       </CardContent>
     </Card>
   );

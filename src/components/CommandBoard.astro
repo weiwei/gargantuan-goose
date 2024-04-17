@@ -17,7 +17,6 @@ const runs = await db
   .innerJoin(HW, eq(Run.hwId, HW.id))
   .orderBy(desc(Run.date));
 const hwConfigs = await db.select().from(HW);
-const osConfigs = await db.select().from(OS);
 const durations = runs.map((r) => r.Run.duration);
 const barData = [];
 for (const hwCfg of hwConfigs) {
